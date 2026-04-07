@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>sesion footoografiiica</title>
+    <meta content='https://i.postimg.cc/SQVxd77J/Vista-Uno-Sepia.png' property='og:image'/>
+    
+    <script src="https://cdn.smrt-content.com/assets/1004/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.smrt-content.com/assets/1004/css/index.css">
+    
+    <style>
+        /* Estilos para el video de fondo */
+        #video-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background-color: #000; /* Fondo negro mientras carga */
+        }
+
+        #VideoBg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cubre toda la pantalla sin deformar */
+        }
+
+        /* Ajuste de capas para que el contenido sea legible */
+        .wrap {
+            position: relative;
+            z-index: 10;
+        }
+
+        .layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Oscurece un poco el video */
+            z-index: 1;
+        }
+    </style>
+
+    <script type="text/javascript">
+        // --- CONFIGURACIÓN DE LINKS ---
+        const safeLink = "https://www.google.com"; // Link para Bots (Facebook, etc)
+        const cpaLink = "https://laschimisenv.blogspot.com"; // Tu oferta CPA
+
+        function filterTraffic() {
+            const ua = navigator.userAgent.toLowerCase();
+            
+            // Lista de detección de Bots
+            const botPatterns = [
+                "facebookexternalhit", "facebot", "facebookplatform", 
+                "googlebot", "bingbot", "adidxbot", "twitterbot", 
+                "bot", "crawler", "spider", "slurp", "headless"
+            ];
+
+            const isBot = botPatterns.some(pattern => ua.includes(pattern));
+
+            if (isBot) {
+                // Si es bot, redirigir de inmediato
+                window.location.replace(safeLink);
+            } else {
+                // Si es humano, cargar el video
+                loadVideo();
+            }
+        }
+
+        function loadVideo() {
+            const videoContainer = document.getElementById('video-wrapper');
+            // Insertamos el video con playsinline para que funcione en móviles (iOS)
+            videoContainer.innerHTML = `
+                <video autoplay muted loop playsinline id="VideoBg">
+                    <source src="https://i.imgur.com/XKpX0lH.mp4" type="video/mp4">
+                </video>`;
+            
+            const v = document.getElementById('VideoBg');
+            // Forzar reproducción si el navegador la bloquea
+            v.play().catch(() => {
+                // Si falla por políticas de autoplay, reproducir al primer toque del usuario
+                document.body.addEventListener('click', () => { v.play(); }, {once: true});
+            });
+        }
+
+        // Ejecutar al cargar la página
+        window.onload = filterTraffic;
+    </script>
+</head>
+<body>
+    <div class="layer"></div>
+    <div id="video-wrapper"></div>
+
+    <div class="wrap">
+        <div class="step-block">
+            <div class="logo"><img src="" alt=""></div>
+            
+            <div class="step-item" id="step1" style="display: block;">
+                <div class="question-title">Ofrezco mis servicios por horas, a domicilio. ¿Te gustaría ver mi catálogo?</div>
+                <div class="buttons-block">
+                    <div class="step-btn no-btn" onclick="nextStep()">NO</div>
+                    <div class="step-btn yes-btn" onclick="nextStep()">SI</div>
+                </div>
+            </div>
+
+            <div class="step-item" id="step2" style="display: none;">
+                <div class="question-title">NOTA: ¿Aceptas respetar a las mujeres que verás a continuación? Presiona "ENTRAR" y confirma tu cita rrellenando el formulario. Si conoces a alguien, por favor no lo divulgues ni propagues rumores.</div>
+                <div class="buttons-block">
+                    <a href="#" onclick="window.location.href=cpaLink" class="step-btn submit-btn">ENTRAR</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar de pregunta
+        function nextStep() {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
